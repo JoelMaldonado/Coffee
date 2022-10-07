@@ -1,26 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:background="@color/P1">
 
-    <TextView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:id="@+id/tvPrincipal"
-        android:textSize="24sp"
-        android:layout_margin="15dp"
-        android:textColor="@color/white"
-        tools:text="Titulo"/>
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvPrincipal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="15dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:text="Titulo" />
+
+        <ImageButton
+            android:id="@+id/btnPuntos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center"
+            android:backgroundTint="@android:color/transparent"
+            android:src="@drawable/ic_puntos"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:tint="@color/white" />
+    </FrameLayout>
 
     <View
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
         android:layout_marginStart="30dp"
         android:background="@drawable/shape_top_left"
-        android:backgroundTint="@color/P2"
-        android:layout_width="match_parent"
-        android:layout_height="15dp"/>
+        android:backgroundTint="@color/P2" />
 
 </LinearLayout>

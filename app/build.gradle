@@ -3,6 +3,8 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'androidx.navigation.safeargs'
     id 'kotlin-kapt'
+
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -52,9 +54,16 @@ dependencies {
     implementation "androidx.room:room-ktx:2.4.3"
     kapt "androidx.room:room-compiler:2.4.3"
 
+    //HILT
+    implementation "com.google.dagger:hilt-android:2.42"
+    kapt "com.google.dagger:hilt-android-compiler:2.42"
+
     //Glide
     implementation "com.github.bumptech.glide:glide:4.13.2"
 
     //SweetAlert
     implementation 'com.github.f0ris.sweetalert:library:1.6.2'
+
+    //KTX LIVE DATA
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
 }

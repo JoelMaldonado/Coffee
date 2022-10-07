@@ -1,27 +1,23 @@
 package com.jjmf.coffee.Ui.ViewModel
 
-import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.jjmf.coffee.Data.AppDatabase
-import com.jjmf.coffee.Model.Usuario
+import androidx.lifecycle.*
+import com.jjmf.coffee.Core.EstadosResult
+import com.jjmf.coffee.Data.UseCase.UsuarioUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class LoginViewModel : ViewModel() {
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+    private val ucUsuario: UsuarioUseCase
+) : ViewModel() {
 
-    private val _usuario : MutableLiveData<Int> = MutableLiveData()
-    val usuario : LiveData<Int> = _usuario
-
-    fun login(usuario: String, clave: String, context: Context) {
-        viewModelScope.launch(Dispatchers.IO){
-            val user = AppDatabase.getInstance(context).usuarioDao().login(usuario, clave)
-            withContext(Dispatchers.Main){
-                _usuario.value = user
-            }
+    fun loginNuevo(usuario: String, clave: String) = liveData(Dispatchers.IO) {
+        emit(EstadosResult.Cargando)
+        try {
+            emit(ucUsuario.login(usuario, clave))
+        } catch (ex: Exception) {
+            emit(EstadosResult.Error(ex.message.toString()))
         }
     }
 }

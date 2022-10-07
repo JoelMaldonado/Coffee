@@ -2,16 +2,22 @@ package com.jjmf.coffee.Ui.Fragments
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isGone
 import androidx.fragment.app.viewModels
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.jjmf.coffee.App.BaseApp
 import com.jjmf.coffee.Core.BaseFragment
+import com.jjmf.coffee.Core.EstadosResult
 import com.jjmf.coffee.R
 import com.jjmf.coffee.Ui.ViewModel.LoginViewModel
 import com.jjmf.coffee.Util.click
 import com.jjmf.coffee.Util.er
 import com.jjmf.coffee.Util.texs
 import com.jjmf.coffee.databinding.FragmentLoginBinding
+import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
+@AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
     private val viewModel : LoginViewModel by viewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -19,10 +25,26 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
         init()
         events()
-        observadores()
     }
     private fun init() {
+        idioma()
         binding.include.tvPrincipal.text = "¡Bienvenido de vuelta!"
+        binding.include.btnPuntos.isGone = false
+    }
+
+    private fun idioma() {
+        val idioma = BaseApp.prefs.getLenguaje()
+        val displayMetrics = resources.displayMetrics
+        val config = resources.configuration
+        config.setLocale(Locale(idioma))
+        resources.updateConfiguration(config,displayMetrics)
+        config.locale = Locale(idioma)
+        resources.updateConfiguration(config,displayMetrics)
+
+        binding.tilUsuario.hint = getString(R.string.edtUsu)
+        binding.tilPass.hint = getString(R.string.edtPass)
+        binding.btnIngresar.hint = getString(R.string.ingresar)
+        binding.btnRegistrar.hint = getString(R.string.registrar)
     }
 
     private fun events() {
@@ -32,21 +54,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         binding.btnRegistrar.click {
             navigateToAction(R.id.action_loginFragment_to_registrarFragment)
         }
-    }
-
-    private fun observadores() {
-        viewModel.usuario.observe(viewLifecycleOwner){
-            if (it>0){
-                navigateToAction(R.id.action_loginFragment_to_menuFragment)
-            }else{
-                val alert = SweetAlertDialog(requireContext(), SweetAlertDialog.WARNING_TYPE)
-                alert.titleText = "Usuario Invalido"
-                alert.contentText = "Los datos ingresados no son correctos"
-                alert.setConfirmButton("Confirmar"){
-                    alert.dismissWithAnimation()
-                }
-                alert.show()
-            }
+        binding.include.btnPuntos.click {
+            navigateToAction(R.id.action_loginFragment_to_ajustesFragment)
         }
     }
 
@@ -59,7 +68,24 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
             usuario.isEmpty() -> tilUsuario.er()
             clave.isEmpty() -> tilPass.er()
             else -> {
-                viewModel.login(usuario, clave, requireContext())
+                viewModel.loginNuevo(usuario,clave).observe(viewLifecycleOwner) { estadoUsuario ->
+                    when (estadoUsuario){
+                        EstadosResult.Cargando -> {
+                            //TODO Encender Cargando
+                        }
+                        is EstadosResult.Correcto -> {
+                            //TODO Apagar Cargando
+                            val usuario = estadoUsuario.datos!!
+                            show("Hola "+usuario.usuario)
+                            navigateToAction(R.id.action_loginFragment_to_menuFragment)
+                        }
+                        is EstadosResult.Error -> {
+                            //TODO Apagar Cargando
+                            show(estadoUsuario.mensajeError)
+                        }
+                    }
+
+                }
             }
         }
     }

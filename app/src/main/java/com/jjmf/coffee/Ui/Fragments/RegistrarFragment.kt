@@ -14,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
 import com.jjmf.coffee.Core.BaseFragment
+import com.jjmf.coffee.Core.EstadosResult
 import com.jjmf.coffee.Model.Usuario
 import com.jjmf.coffee.R
 import com.jjmf.coffee.Ui.ViewModel.RegistrarViewModel
@@ -23,7 +24,9 @@ import com.jjmf.coffee.Util.er
 import com.jjmf.coffee.Util.texs
 import com.jjmf.coffee.databinding.CalendarioBinding
 import com.jjmf.coffee.databinding.FragmentRegistrarBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RegistrarFragment : BaseFragment<FragmentRegistrarBinding>(FragmentRegistrarBinding::inflate) {
     private val viewModel : RegistrarViewModel by viewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -91,9 +94,22 @@ class RegistrarFragment : BaseFragment<FragmentRegistrarBinding>(FragmentRegistr
             clave.isEmpty()-> tilPass.er()
             else->{
                 val user = Usuario(nombre, apellido, fechaNac, genero, usuario, clave)
-                viewModel.insertarUsuario(user, requireContext())
-                show("Ingresado correctamente")
-                findNavController().popBackStack()
+                viewModel.insertarUsuario(user).observe(viewLifecycleOwner){resultado->
+                    when(resultado){
+                        EstadosResult.Cargando -> {
+                            //TODO Encender Cargando
+                        }
+                        is EstadosResult.Correcto -> {
+                            //TODO Apagar Cargando
+                            show(resultado.datos.toString())
+                            findNavController().popBackStack()
+                        }
+                        is EstadosResult.Error -> {
+                            //TODO Apagar Cargando
+                            show(resultado.mensajeError)
+                        }
+                    }
+                }
             }
         }
     }
