@@ -31,7 +31,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         binding.include.tvPrincipal.text = "¡Bienvenido de vuelta!"
         binding.include.btnPuntos.isGone = false
     }
-
+//TODO hacer menu para configuracion
+    //TODO el radiobutton del idioma no se automatiza segun el idioma del tlf
+    //TODO el radiobutton del tema debe seleccionarse automaticamente segun el tema que tenga el tlf
+    //TODO en tu trabajo solo lavoran con modo claro, pero Que pasa si el alguien tiene el tlf en modo oscuro? como eliminar ese modo?
     private fun idioma() {
         val idioma = BaseApp.prefs.getLenguaje()
         val displayMetrics = resources.displayMetrics

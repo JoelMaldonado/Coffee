@@ -1,10 +1,7 @@
 package com.jjmf.coffee.Ui.Fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import com.jjmf.coffee.App.BaseApp.Companion.prefs
 import com.jjmf.coffee.Core.BaseFragment
@@ -18,17 +15,14 @@ import java.util.*
 class AjustesFragment : BaseFragment<FragmentAjustesBinding>(FragmentAjustesBinding::inflate) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         init()
     }
-
     private fun init() = with(binding){
         when(prefs.getLenguaje()){
             "es"-> btnEspa.isChecked = true
             "en"-> btnEngli.isChecked = true
 
         }
-
         btnEspa.click {
             prefs.saveLenguaje("es")
             cambiarLenguaje()
@@ -37,7 +31,6 @@ class AjustesFragment : BaseFragment<FragmentAjustesBinding>(FragmentAjustesBind
             prefs.saveLenguaje("en")
             cambiarLenguaje()
         }
-
         btnClaro.click {
             actualizaTem(false)
         }
@@ -45,15 +38,13 @@ class AjustesFragment : BaseFragment<FragmentAjustesBinding>(FragmentAjustesBind
             actualizaTem(true)
         }
     }
-
-    private fun actualizaTem(booldlkjlkjlkj: Boolean) {
-        if (booldlkjlkjlkj){
+    private fun actualizaTem(boold: Boolean) {
+        if (boold){
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }else{
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
     }
-
     private fun cambiarLenguaje() {
         val idioma = prefs.getLenguaje()
         val displayMetrics = resources.displayMetrics
