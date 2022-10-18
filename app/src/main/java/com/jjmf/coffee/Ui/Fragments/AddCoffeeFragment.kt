@@ -8,17 +8,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.viewModels
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
 import com.jjmf.coffee.Core.BaseFragment
+import com.jjmf.coffee.Core.EstadosResult
 import com.jjmf.coffee.Core.Permisos
+import com.jjmf.coffee.Model.Coffee
 import com.jjmf.coffee.R
+import com.jjmf.coffee.Ui.ViewModel.AddCoffeeViewModel
 import com.jjmf.coffee.Util.click
 import com.jjmf.coffee.databinding.FragmentAddCoffeeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AddCoffeeFragment : BaseFragment<FragmentAddCoffeeBinding>(FragmentAddCoffeeBinding::inflate) {
+    private val viewModel : AddCoffeeViewModel by viewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -31,6 +36,8 @@ class AddCoffeeFragment : BaseFragment<FragmentAddCoffeeBinding>(FragmentAddCoff
     private fun init() {
         binding.icTitulo.tvPrincipal.text = "Añadir Coffee"
         binding.ivFoto.click {
+            show("Seleccionando Foto")
+            /*
             val alert = SweetAlertDialog(requireContext(),SweetAlertDialog.NORMAL_TYPE)
             alert.titleText = "Imagen"
             alert.contentText = "Seleccione de donde desee obtener la imagen"
@@ -47,7 +54,7 @@ class AddCoffeeFragment : BaseFragment<FragmentAddCoffeeBinding>(FragmentAddCoff
                 }
                 alert.dismissWithAnimation()
             }
-            alert.show()
+            alert.show()*/
         }
     }
 
@@ -62,7 +69,19 @@ class AddCoffeeFragment : BaseFragment<FragmentAddCoffeeBinding>(FragmentAddCoff
 
 
     private fun events() {
-        val nombre = binding.edtNombre.text.toString()
-        val prepa = binding.edtPreparacion.text.toString()
+        binding.btnAgregar.click {
+            val nombre = binding.edtNombre.text.toString()
+            val prepa = binding.edtPreparacion.text.toString()
+            val coffee = Coffee(nombre,prepa,"")
+            viewModel.insert(coffee).observe(viewLifecycleOwner){
+                when(it){
+                    EstadosResult.Cargando -> {}
+                    is EstadosResult.Correcto -> {
+                        show(it.datos.toString())
+                    }
+                    is EstadosResult.Error -> {}
+                }
+            }
+        }
     }
 }

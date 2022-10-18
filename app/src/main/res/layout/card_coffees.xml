@@ -25,13 +25,15 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textColor="@color/P1"
+                android:id="@+id/tvNombre"
                 android:textStyle="bold"
                 android:text="Nombre" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nombre" />
+                android:text="desc"
+                android:id="@+id/tvPreparacion"/>
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton

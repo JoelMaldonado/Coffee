@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName = "tb_coffee")
 data class Coffee(
     @ColumnInfo(name = "nombre") val nombre:String,
     @ColumnInfo(name = "preparacion") val preparacion:String,
