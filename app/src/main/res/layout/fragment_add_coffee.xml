@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
     android:background="@color/P1"
     android:orientation="vertical"
-    tools:context=".Ui.Fragments.LoginFragment">
+    tools:context=".Ui.Fragments.AddCoffeeFragment">
 
     <include
-        android:id="@+id/include"
+        android:id="@+id/icTitulo"
         layout="@layout/header" />
 
     <LinearLayout
@@ -18,67 +18,58 @@
         android:background="@drawable/shape_top_left"
         android:backgroundTint="@color/white"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="10dp">
 
-        <TextView
+        <ImageButton
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_add_photo"
+            android:id="@+id/ivFoto"
+            android:backgroundTint="@color/P1"
+            android:layout_marginTop="5dp"
+            app:tint="@color/white" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tilNombre"
+            android:layout_margin="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edtNombre"
+                android:hint="Ej: Americano" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tilPreparacion"
+            android:layout_margin="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:id="@+id/edtPreparacion"
+                android:hint="Preparación"
+                android:lines="5" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <com.google.android.material.button.MaterialButton
+            app:cornerRadius="10dp"
+            android:ems="10"
             android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
             android:layout_height="wrap_content"
-            android:text="@string/login"
-            android:textColor="@color/P2"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilUsuario"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edtUsuario"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/edtUsu"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilPass"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:endIconMode="password_toggle">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edtPass"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/edtPass"
-                android:inputType="textPassword" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnIngresar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:backgroundTint="@color/P2"
-            android:text="@string/ingresar"
-            app:cornerRadius="20dp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnRegistrar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="@color/white"
-            android:text="@string/registrar"
-            android:textColor="@color/P2"
-            app:cornerRadius="20dp"
-            app:strokeColor="@color/P2"
-            app:strokeWidth="1dp" />
+            android:text="Agregar"/>
     </LinearLayout>
-
 </LinearLayout>

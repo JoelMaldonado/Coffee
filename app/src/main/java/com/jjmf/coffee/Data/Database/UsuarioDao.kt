@@ -1,4 +1,4 @@
-package com.jjmf.coffee.Data
+package com.jjmf.coffee.Data.Database
 
 import androidx.room.Dao
 import androidx.room.Insert

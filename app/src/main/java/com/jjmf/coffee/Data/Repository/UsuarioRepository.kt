@@ -1,6 +1,6 @@
 package com.jjmf.coffee.Data.Repository
 
-import com.jjmf.coffee.Data.AppDatabase
+import com.jjmf.coffee.Data.Database.AppDatabase
 import com.jjmf.coffee.Model.Usuario
 import javax.inject.Inject
 
@@ -14,7 +14,7 @@ interface UsuarioRepository {
 }
 
 class UsuarioRepositoryImpl @Inject constructor(
-    private val db:AppDatabase
+    private val db: AppDatabase
 ) : UsuarioRepository{
 
     override suspend fun getList(): List<Usuario> {

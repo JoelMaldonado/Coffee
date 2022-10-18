@@ -66,4 +66,7 @@ dependencies {
 
     //KTX LIVE DATA
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
+
+    //Easy Permisos
+    implementation 'com.vmadalin:easypermissions-ktx:1.0.0'
 }

@@ -30,7 +30,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         idioma()
         binding.include.tvPrincipal.text = "¡Bienvenido de vuelta!"
         binding.include.btnPuntos.isGone = false
+
+        binding.edtUsuario.setText("joel")
+        binding.edtPass.setText("12345678")
     }
+
 //TODO hacer menu para configuracion
     //TODO el radiobutton del idioma no se automatiza segun el idioma del tlf
     //TODO el radiobutton del tema debe seleccionarse automaticamente segun el tema que tenga el tlf

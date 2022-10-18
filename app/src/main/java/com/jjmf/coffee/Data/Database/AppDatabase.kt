@@ -1,4 +1,4 @@
-package com.jjmf.coffee.Data
+package com.jjmf.coffee.Data.Database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

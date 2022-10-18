@@ -1,17 +1,12 @@
 package com.jjmf.coffee.Ui.ViewModel
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import androidx.lifecycle.viewModelScope
 import com.jjmf.coffee.Core.EstadosResult
-import com.jjmf.coffee.Data.AppDatabase
-import com.jjmf.coffee.Data.Repository.UsuarioRepository
 import com.jjmf.coffee.Data.UseCase.UsuarioUseCase
 import com.jjmf.coffee.Model.Usuario
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel

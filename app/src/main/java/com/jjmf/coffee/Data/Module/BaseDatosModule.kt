@@ -2,7 +2,7 @@ package com.jjmf.coffee.Data.Module
 
 import android.content.Context
 import androidx.room.Room
-import com.jjmf.coffee.Data.AppDatabase
+import com.jjmf.coffee.Data.Database.AppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

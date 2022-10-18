@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/menu_listado"
+        android:icon="@drawable/ic_cafe"
+        android:title="Cafes"/>
+    <item android:id="@+id/menu_agregar"
+        android:icon="@drawable/ic_add"
+        android:title="Agregar"/>
+    <item android:id="@+id/menu_favoritos"
+        android:icon="@drawable/ic_favorito"
+        android:title="Favoritos"/>
+</menu>
