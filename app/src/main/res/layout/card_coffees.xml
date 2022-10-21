@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
@@ -14,33 +15,29 @@
         android:orientation="horizontal"
         android:padding="10dp">
 
-        <LinearLayout
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ivFoto"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            tools:src="@drawable/cafe" />
+
+        <TextView
+            android:id="@+id/tvNombre"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:textColor="@color/P1"
-                android:id="@+id/tvNombre"
-                android:textStyle="bold"
-                android:text="Nombre" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="desc"
-                android:id="@+id/tvPreparacion"/>
-        </LinearLayout>
+            android:text="Nombre"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
 
         <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cornerRadius="10dp"
-            android:text="Ver/Editar" />
+            android:text="Ver"
+            android:id="@+id/btnVer"
+            android:textAllCaps="false"
+            app:cornerRadius="10dp" />
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

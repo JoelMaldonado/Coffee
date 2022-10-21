@@ -14,10 +14,23 @@
         android:id="@+id/menu_coffeesFragment"
         android:name="com.jjmf.coffee.Ui.Fragments.CoffeesFragment"
         android:label="fragment_coffees"
-        tools:layout="@layout/fragment_coffees" />
+        tools:layout="@layout/fragment_coffees" >
+        <action
+            android:id="@+id/action_menu_coffeesFragment_to_detalleFragment"
+            app:destination="@id/detalleFragment" />
+    </fragment>
     <fragment
         android:id="@+id/menu_favoriteCoffeeFragment"
         android:name="com.jjmf.coffee.Ui.Fragments.FavoriteCoffeeFragment"
         android:label="fragment_favorite_coffee"
         tools:layout="@layout/fragment_favorite_coffee" />
+    <fragment
+        android:id="@+id/detalleFragment"
+        android:name="com.jjmf.coffee.Ui.Fragments.DetalleFragment"
+        android:label="fragment_detalle"
+        tools:layout="@layout/fragment_detalle" >
+        <argument
+            android:name="cafe"
+            app:argType="com.jjmf.coffee.Model.Coffee" />
+    </fragment>
 </navigation>

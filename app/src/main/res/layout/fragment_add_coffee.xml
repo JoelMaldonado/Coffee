@@ -20,57 +20,70 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-        <ImageButton
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardFoto"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center"
-            android:src="@drawable/ic_add_photo"
-            android:id="@+id/ivFoto"
-            android:backgroundTint="@color/P1"
-            android:layout_marginTop="5dp"
-            app:tint="@color/white" />
+            android:layout_margin="20dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="@color/P1"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp">
+
+            <ImageView
+                android:id="@+id/ivFoto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_add_photo" />
+
+        </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilNombre"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tilNombre"
             android:layout_margin="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtNombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/edtNombre"
                 android:hint="Ej: Americano" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilPreparacion"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tilPreparacion"
             android:layout_margin="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtPreparacion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
-                android:id="@+id/edtPreparacion"
                 android:hint="Preparación"
                 android:lines="5" />
         </com.google.android.material.textfield.TextInputLayout>
+
         <Space
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
+
         <com.google.android.material.button.MaterialButton
-            app:cornerRadius="10dp"
-            android:ems="10"
-            android:layout_width="wrap_content"
             android:id="@+id/btnAgregar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="10dp"
-            android:layout_height="wrap_content"
-            android:text="Agregar"/>
+            android:ems="10"
+            android:text="Agregar"
+            app:cornerRadius="10dp" />
     </LinearLayout>
 </LinearLayout>

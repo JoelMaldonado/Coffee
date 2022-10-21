@@ -1,17 +1,19 @@
 package com.jjmf.coffee.Ui.Fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
 import com.jjmf.coffee.Core.BaseAdapter
 import com.jjmf.coffee.Core.BaseFragment
 import com.jjmf.coffee.Core.EstadosResult
 import com.jjmf.coffee.Model.Coffee
 import com.jjmf.coffee.R
 import com.jjmf.coffee.Ui.ViewModel.CoffeesViewModel
+import com.jjmf.coffee.Util.click
 import com.jjmf.coffee.databinding.CardCoffeesBinding
 import com.jjmf.coffee.databinding.FragmentCoffeesBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,7 +28,11 @@ class CoffeesFragment : BaseFragment<FragmentCoffeesBinding>(FragmentCoffeesBind
             return object : BaseAdapterViewHolder<Coffee>(view){
                 override fun bind(entity: Coffee) {
                     bind2.tvNombre.text = entity.nombre
-                    bind2.tvPreparacion.text = entity.preparacion
+                    Glide.with(requireContext()).load(entity.foto.toUri()).error(R.drawable.cafe).into(bind2.ivFoto)
+                    bind2.btnVer.click {
+                        val dir = CoffeesFragmentDirections.actionMenuCoffeesFragmentToDetalleFragment(entity)
+                        navigateToDirections(dir)
+                    }
                 }
             }
         }
