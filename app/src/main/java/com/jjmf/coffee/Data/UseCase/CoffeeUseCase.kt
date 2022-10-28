@@ -19,4 +19,12 @@ class CoffeeUseCase @Inject constructor(
     suspend fun getListLd():LiveData<List<Coffee>>{
         return rep.getListLD()
     }
+
+    suspend fun delete(coffe: Coffee) {
+        rep.delete(coffe)
+    }
+
+    suspend fun update(cafe: Coffee) {
+        rep.update(cafe)
+    }
 }

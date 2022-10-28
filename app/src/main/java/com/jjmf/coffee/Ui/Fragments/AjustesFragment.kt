@@ -1,5 +1,6 @@
 package com.jjmf.coffee.Ui.Fragments
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
@@ -25,11 +26,11 @@ class AjustesFragment : BaseFragment<FragmentAjustesBinding>(FragmentAjustesBind
         }
         btnEspa.click {
             prefs.saveLenguaje("es")
-            cambiarLenguaje()
+            cambiarIdioma()
         }
         btnEngli.click {
             prefs.saveLenguaje("en")
-            cambiarLenguaje()
+            cambiarIdioma()
         }
         btnClaro.click {
             actualizaTem(false)
@@ -45,15 +46,14 @@ class AjustesFragment : BaseFragment<FragmentAjustesBinding>(FragmentAjustesBind
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
     }
-    private fun cambiarLenguaje() {
-        val idioma = prefs.getLenguaje()
-        val displayMetrics = resources.displayMetrics
-        val config = resources.configuration
-        config.setLocale(Locale(idioma))
-        resources.updateConfiguration(config,displayMetrics)
-        config.locale = Locale(idioma)
-        resources.updateConfiguration(config,displayMetrics)
 
+    private fun cambiarIdioma(){
+        val locale = Locale(prefs.getLenguaje())
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.locale = locale
+        requireActivity().resources.updateConfiguration(config, requireActivity().resources.displayMetrics)
+        onAttach(requireContext())
         binding.tvIdioma.text = getString(R.string.idioma)
         binding.btnEspa.text = getString(R.string.espa_ol)
         binding.btnEngli.text = getString(R.string.english)

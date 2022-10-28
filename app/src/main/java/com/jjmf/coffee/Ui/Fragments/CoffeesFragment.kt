@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.net.toUri
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
 import com.jjmf.coffee.Core.BaseAdapter
 import com.jjmf.coffee.Core.BaseFragment
@@ -20,24 +22,46 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CoffeesFragment : BaseFragment<FragmentCoffeesBinding>(FragmentCoffeesBinding::inflate) {
-    private val  viewModel : CoffeesViewModel by viewModels()
-    private val adaptador = object : BaseAdapter<Coffee>(emptyList()){
+    private val viewModel: CoffeesViewModel by viewModels()
+    private val adaptador = object : BaseAdapter<Coffee>(emptyList()) {
         override fun getViewHolder(parent: ViewGroup): BaseAdapterViewHolder<Coffee> {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.card_coffees,parent,false)
+            val view =
+                LayoutInflater.from(parent.context).inflate(R.layout.card_coffees, parent, false)
             val bind2 = CardCoffeesBinding.bind(view)
-            return object : BaseAdapterViewHolder<Coffee>(view){
+            return object : BaseAdapterViewHolder<Coffee>(view) {
                 override fun bind(entity: Coffee) {
                     bind2.tvNombre.text = entity.nombre
-                    Glide.with(requireContext()).load(entity.foto.toUri()).error(R.drawable.cafe).into(bind2.ivFoto)
+                    Glide.with(requireContext()).load(entity.foto.toUri()).error(R.drawable.cafe)
+                        .into(bind2.ivFoto)
                     bind2.btnVer.click {
-                        val dir = CoffeesFragmentDirections.actionMenuCoffeesFragmentToDetalleFragment(entity)
+                        val dir =
+                            CoffeesFragmentDirections.actionMenuCoffeesFragmentToDetalleFragment(
+                                entity
+                            )
                         navigateToDirections(dir)
+                    }
+                    bind2.root.setOnLongClickListener {
+                        alertaEliminar(entity)
+                        true
                     }
                 }
             }
         }
 
     }
+
+    private fun alertaEliminar(coffe: Coffee) {
+        val alert = SweetAlertDialog(requireContext(), SweetAlertDialog.WARNING_TYPE)
+        alert.titleText = "Cuidado"
+        alert.contentText = "Estas apunto de eliminar ${coffe.nombre}, estas Seguro"
+        alert.setCancelButton("Cancelar") { alert.dismissWithAnimation() }
+        alert.setConfirmButton("Confirmar") {
+            alert.dismissWithAnimation()
+            viewModel.delete(coffe)
+        }
+        alert.show()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
@@ -48,15 +72,28 @@ class CoffeesFragment : BaseFragment<FragmentCoffeesBinding>(FragmentCoffeesBind
         binding.recycler.adapter = adaptador
         binding.icTitulo.tvPrincipal.text = "Listado Coffee"
         geTList()
+        buscador()
     }
 
+    private fun buscador() {
+        binding.edtBuscador.addTextChangedListener {edt->
+            val listadonuevo = listado.filter {cafe->
+                cafe.nombre.lowercase().contains(edt.toString().lowercase())
+            }
+            adaptador.update(listadonuevo)
+        }
+    }
+
+    private lateinit var listado: List<Coffee>
+
     private fun geTList() {
-        viewModel.getListLiveData().observe(viewLifecycleOwner){
-            when(it){
+        viewModel.getListLiveData().observe(viewLifecycleOwner) {
+            when (it) {
                 EstadosResult.Cargando -> {}
                 is EstadosResult.Correcto -> {
-                    it.datos!!.observe(viewLifecycleOwner){list->
-                        adaptador.update(list)
+                    it.datos!!.observe(viewLifecycleOwner) { list ->
+                        listado = list
+                        adaptador.update(listado)
                     }
                 }
                 is EstadosResult.Error -> {}

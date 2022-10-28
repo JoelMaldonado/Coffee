@@ -12,81 +12,120 @@
         android:id="@+id/icTitulo"
         layout="@layout/header" />
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/shape_top_left"
         android:backgroundTint="@color/white"
-        android:orientation="vertical"
         android:padding="20dp">
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            app:cardBackgroundColor="@color/P1"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="10dp">
-
-            <ImageView
-                android:id="@+id/ivFoto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/cafe" />
-
-        </com.google.android.material.card.MaterialCardView>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                app:cardBackgroundColor="@color/P1"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="10dp">
+
+                <ImageView
+                    android:id="@+id/ivFoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/cafe" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Nombre"
+                    android:textColor="@color/P1"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvNombre"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    tools:text="Cafe" />
+            </LinearLayout>
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_marginVertical="10dp"
                 android:gravity="center"
-                android:text="Nombre"
+                android:text="Descripcion"
                 android:textColor="@color/P1"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvNombre"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:id="@+id/tvDescrip"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                tools:text="Cafe" />
+                android:gravity="center|top"
+                android:justificationMode="inter_word"
+                android:textSize="16sp"
+                android:textStyle="italic"
+                tools:text="@string/lorem" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilDescrip"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:visibility="gone">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtDescrip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:hint="Editar" />
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
-
-        <TextView
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginVertical="10dp"
-            android:gravity="center"
-            android:text="Descripcion"
-            android:textColor="@color/P1"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:id="@+id/btnActualizar"
+            android:visibility="gone"
+            android:layout_gravity="center|bottom"
+            android:text="Actualizar"/>
 
-        <TextView
-            android:id="@+id/tvDescrip"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnEditar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:justificationMode="inter_word"
-            android:textSize="16sp"
-            android:textStyle="italic"
-            tools:text="@string/lorem" />
-    </LinearLayout>
+            android:layout_gravity="end|bottom"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_editar"
+            app:tint="@color/white" />
+
+    </FrameLayout>
 
 </LinearLayout>

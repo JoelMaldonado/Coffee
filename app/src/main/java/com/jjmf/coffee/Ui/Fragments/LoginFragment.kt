@@ -1,11 +1,14 @@
 package com.jjmf.coffee.Ui.Fragments
 
+import android.content.res.Configuration
 import android.os.Bundle
+import android.transition.AutoTransition
+import android.transition.TransitionManager
 import android.view.View
 import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import cn.pedant.SweetAlert.SweetAlertDialog
-import com.jjmf.coffee.App.BaseApp
+import com.jjmf.coffee.App.BaseApp.Companion.prefs
 import com.jjmf.coffee.Core.BaseFragment
 import com.jjmf.coffee.Core.EstadosResult
 import com.jjmf.coffee.R
@@ -27,12 +30,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         events()
     }
     private fun init() {
-        idioma()
-        binding.include.tvPrincipal.text = "¡Bienvenido de vuelta!"
+        detectarIdioma()
+        binding.include.tvPrincipal.text = getString(R.string.tvBienvenido)
         binding.include.btnPuntos.isGone = false
 
         binding.edtUsuario.setText("joel")
         binding.edtPass.setText("12345678")
+        desplegable()
     }
 
 //TODO hacer menu para configuracion
@@ -41,19 +45,41 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     //TODO en tu trabajo solo lavoran con modo claro, pero Que pasa si el alguien tiene el tlf en modo oscuro? como eliminar ese modo?
     //TODO carpeta para AppDatabase y UsuarioDao
     //TODO modificar en github y mandarlo a mi companero
-    private fun idioma() {
-        val idioma = BaseApp.prefs.getLenguaje()
-        val displayMetrics = resources.displayMetrics
-        val config = resources.configuration
-        config.setLocale(Locale(idioma))
-        resources.updateConfiguration(config,displayMetrics)
-        config.locale = Locale(idioma)
-        resources.updateConfiguration(config,displayMetrics)
 
+    private fun detectarIdioma(){
+        val locale = Locale(prefs.getLenguaje())
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.locale = locale
+        requireActivity().resources.updateConfiguration(config, requireActivity().resources.displayMetrics)
+        onAttach(requireContext())
+        binding.include.tvPrincipal.text = getString(R.string.tvBienvenido)
         binding.tilUsuario.hint = getString(R.string.edtUsu)
         binding.tilPass.hint = getString(R.string.edtPass)
-        binding.btnIngresar.hint = getString(R.string.ingresar)
-        binding.btnRegistrar.hint = getString(R.string.registrar)
+        binding.btnIngresar.text = getString(R.string.ingresar)
+        binding.btnRegistrar.text = getString(R.string.registrar)
+        binding.tvIdioma.text = getString(R.string.idioma)
+        binding.tvEspa.text = getString(R.string.espa_ol)
+        binding.tvEnglish.text = getString(R.string.english)
+        if (prefs.getLenguaje() == "es"){
+            binding.checkEspa.isVisible = true
+            binding.checkEng.isVisible = false
+        }else{
+            binding.checkEspa.isVisible = false
+            binding.checkEng.isVisible = true
+        }
+    }
+
+    private fun desplegable() {
+        binding.linearTitulo.click{
+            if (binding.linearContenido.isGone){
+                TransitionManager.beginDelayedTransition(binding.root, AutoTransition())
+                binding.linearContenido.isGone = false
+            }else {
+                TransitionManager.beginDelayedTransition(binding.root, AutoTransition())
+                binding.linearContenido.isGone = true
+            }
+        }
     }
 
     private fun events() {
@@ -65,6 +91,14 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         }
         binding.include.btnPuntos.click {
             navigateToAction(R.id.action_loginFragment_to_ajustesFragment)
+        }
+        binding.linearEspa.click {
+            prefs.saveLenguaje("es")
+            detectarIdioma()
+        }
+        binding.linearEng.click {
+            prefs.saveLenguaje("en")
+            detectarIdioma()
         }
     }
 
@@ -84,8 +118,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                         }
                         is EstadosResult.Correcto -> {
                             //TODO Apagar Cargando
-                            val usuario = estadoUsuario.datos!!
-                            show("Hola "+usuario.usuario)
                             navigateToAction(R.id.action_loginFragment_to_menuFragment)
                         }
                         is EstadosResult.Error -> {

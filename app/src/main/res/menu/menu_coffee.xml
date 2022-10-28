@@ -3,11 +3,11 @@
 
     <item android:id="@+id/menu_listado"
         android:icon="@drawable/ic_cafe"
-        android:title="Cafes"/>
+        android:title="@string/menu_cafe"/>
     <item android:id="@+id/menu_agregar"
         android:icon="@drawable/ic_add"
-        android:title="Agregar"/>
+        android:title="@string/menu_agregar"/>
     <item android:id="@+id/menu_favoritos"
         android:icon="@drawable/ic_favorito"
-        android:title="Favoritos"/>
+        android:title="@string/menu_favoritos"/>
 </menu>
