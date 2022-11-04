@@ -16,8 +16,17 @@ class DetalleViewModel @Inject constructor(
     fun actualizar(cafe: Coffee) = liveData(Dispatchers.IO){
         emit(EstadosResult.Cargando)
         try {
-            cafeUc.update(cafe)
-            emit(EstadosResult.Correcto("Actualizado"))
+            emit(cafeUc.update(cafe))
+        }catch (e:Exception){
+            emit(EstadosResult.Error(e.message.toString()))
+        }
+    }
+
+    fun delete(coffe: Coffee) = liveData(Dispatchers.IO){
+        emit(EstadosResult.Cargando)
+        kotlinx.coroutines.delay(1000)
+        try {
+            emit(cafeUc.delete(coffe))
         }catch (e:Exception){
             emit(EstadosResult.Error(e.message.toString()))
         }

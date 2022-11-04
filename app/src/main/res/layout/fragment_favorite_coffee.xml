@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/P1"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Ui.Fragments.FavoriteCoffeeFragment">
@@ -15,7 +16,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/shape_top_left"
-        android:backgroundTint="@color/white">
+        android:backgroundTint="@color/white"
+        android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
@@ -26,4 +28,4 @@
             tools:listitem="@layout/card_coffees" />
 
     </LinearLayout>
-</FrameLayout>
+</LinearLayout>

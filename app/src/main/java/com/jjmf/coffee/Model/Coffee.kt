@@ -10,5 +10,6 @@ data class Coffee(
     @ColumnInfo(name = "nombre") val nombre:String,
     @ColumnInfo(name = "preparacion") var preparacion:String,
     @ColumnInfo(name = "foto") val foto:String,
+    @ColumnInfo(name = "favorito") var favorito:Boolean = false,
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id:Int = 0
 ) : Serializable

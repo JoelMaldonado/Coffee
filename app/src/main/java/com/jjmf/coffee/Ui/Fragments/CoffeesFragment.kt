@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.core.net.toUri
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
-import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
 import com.jjmf.coffee.Core.BaseAdapter
 import com.jjmf.coffee.Core.BaseFragment
@@ -40,26 +39,9 @@ class CoffeesFragment : BaseFragment<FragmentCoffeesBinding>(FragmentCoffeesBind
                             )
                         navigateToDirections(dir)
                     }
-                    bind2.root.setOnLongClickListener {
-                        alertaEliminar(entity)
-                        true
-                    }
                 }
             }
         }
-
-    }
-
-    private fun alertaEliminar(coffe: Coffee) {
-        val alert = SweetAlertDialog(requireContext(), SweetAlertDialog.WARNING_TYPE)
-        alert.titleText = "Cuidado"
-        alert.contentText = "Estas apunto de eliminar ${coffe.nombre}, estas Seguro"
-        alert.setCancelButton("Cancelar") { alert.dismissWithAnimation() }
-        alert.setConfirmButton("Confirmar") {
-            alert.dismissWithAnimation()
-            viewModel.delete(coffe)
-        }
-        alert.show()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
