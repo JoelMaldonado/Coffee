@@ -3,6 +3,7 @@ package com.jjmf.coffee.Ui.Fragments
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isGone
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
@@ -69,6 +70,11 @@ class DetalleFragment : BaseFragment<FragmentDetalleBinding>(FragmentDetalleBind
                     is EstadosResult.Error -> {}
                 }
             }
+        }
+        binding.edtDescrip.addTextChangedListener {
+            val cant = it.toString().length > 20
+            binding.btnActualizar.isEnabled = cant
+            binding.tilDescrip.helperText = if (!cant) "Minimo 20 caracteres" else ""
         }
     }
 

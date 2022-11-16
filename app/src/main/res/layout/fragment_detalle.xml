@@ -78,6 +78,8 @@
                 android:id="@+id/tilDescrip"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
+                app:counterEnabled="true"
+                app:counterMaxLength="30"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:visibility="gone">
@@ -86,6 +88,7 @@
                     android:id="@+id/edtDescrip"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLength="30"
                     android:gravity="start"
                     android:hint="Editar" />
             </com.google.android.material.textfield.TextInputLayout>
