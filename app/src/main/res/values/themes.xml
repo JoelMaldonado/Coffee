@@ -12,8 +12,9 @@
 
     <style name="MySplash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/P1</item>
-        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_round</item>
+        <item name="windowSplashScreenAnimatedIcon">@color/P1</item>
         <item name="windowSplashScreenAnimationDuration">300</item>
         <item name="postSplashScreenTheme">@style/CoffeTema</item>
     </style>
+
 </resources>

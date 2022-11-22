@@ -2,6 +2,7 @@ package com.jjmf.coffee.Ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.jjmf.coffee.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 
         screenSplash.setKeepOnScreenCondition{false}
 
-
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         events()
     }
 
